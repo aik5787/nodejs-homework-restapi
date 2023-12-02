@@ -1,5 +1,3 @@
-// GYNoOQ66xojqKlQz
-
 const app = require('./app')
 
 const mongoose = require('mongoose');
@@ -18,10 +16,3 @@ console.log("Database connection successful")
 process.exit(1)});
 
 
-
-
-
-
-// app.listen(3000, () => {
-//   console.log("Server running. Use our API on port: 3000")
-// })
