@@ -29,7 +29,8 @@ const contactSchema = new Schema({
 
   const favoriteContactScheme = Joi.object({
     favorite: Joi.boolean().required(),
-  });
+  }).messages({ "any.required": "missing field {#key}" });
+
   const schemas = {
     scheme, favoriteContactScheme
   };

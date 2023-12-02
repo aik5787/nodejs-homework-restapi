@@ -39,7 +39,7 @@ const listContacts = async (req, res) => {
     res.status(200).json(result);
   };
 
-  const updateFavorite = async (req, res) => {
+  const updateStatusContact = async (req, res) => {
     const { contactId } = req.params;
     const result = await Contact.findByIdAndUpdate(contactId, req.body, {
       new: true,
@@ -54,6 +54,6 @@ const listContacts = async (req, res) => {
     getContactById: ctrlWrapper(getContactById),
     removeContact: ctrlWrapper(removeContact),
     addContact: ctrlWrapper(addContact),
-    updateFavorite: ctrlWrapper(updateFavorite),
+    updateStatusContact: ctrlWrapper(updateStatusContact),
     updateContact: ctrlWrapper(updateContact),
   };
