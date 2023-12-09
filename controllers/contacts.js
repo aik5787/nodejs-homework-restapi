@@ -3,7 +3,10 @@ const { HttpError, ctrlWrapper } = require("../helpers/index");
 
 
 const listContacts = async (req, res) => {
-    const result = await Contact.find();
+  const owner = req.user.id;
+  const { page = 1, limit = 20, favorite } = req.query;
+  const skip = (page - 1) * limit;
+    const result = await Contact.find({owner}, "-createdAt -updatedAt", {skip, limit}).populate("owner", "email");
     res.status(200).json(result);
   };
   
@@ -24,7 +27,7 @@ const listContacts = async (req, res) => {
   };
 
   const addContact = async (req, res) => {
-    const result = await Contact.create(req.body);
+    const result = await Contact.create({ ...req.body, owner: req.user.id });
     res.status(201).json(result);
   };
 
