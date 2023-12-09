@@ -41,9 +41,26 @@ const register = async (req, res, next) => {
 
   }
 
+  const logout = async (req, res) => {
+    const { id } = req.user;
+    await User.findByIdAndUpdate(id, { token: "" });
+    res.status(204).send();
+  };
+
   const getCurrent = async (req, res) => {
     const { email, subscription } = req.user;
     res.json({ email, subscription });
+  };
+  
+  const changeSubscription = async (req, res, next) => {
+    const { id, email } = req.user;
+    const { subscription } = req.body;
+  
+    const result = await User.findByIdAndUpdate(id, req.body, { new: true });
+  
+    if (!result) throw HttpError(404, "Not found");
+  
+    res.status(200).json({ id, email, subscription });
   };
   
 
@@ -51,6 +68,7 @@ const register = async (req, res, next) => {
   module.exports = {
     register: ctrlWrapper(register),
     login: ctrlWrapper(login),
+    logout: ctrlWrapper(logout),
     getCurrent: ctrlWrapper(getCurrent),
-
+    changeSubscription: ctrlWrapper(changeSubscription),
   };
