@@ -1,6 +1,6 @@
 const {HttpError} = require("../helpers/index");
 
-const validateContactBody = scheme => {
+const validateBody = scheme => {
     const func = (req, res, next)=> {
       if (!req.body || Object.keys(req.body).length === 0) {
         throw HttpError(400, "missing fields");
@@ -15,7 +15,7 @@ const validateContactBody = scheme => {
     return func;
 }
 
-const validateContactBodyStatus = scheme => {
+const validateBodyStatus = scheme => {
   const func = (req, res, next)=> {
     if (!req.body || Object.keys(req.body).length === 0) {
       throw HttpError(400, "missing field favorite");
@@ -30,5 +30,5 @@ const validateContactBodyStatus = scheme => {
   return func;
 }
 
-module.exports = {validateContactBody, validateContactBodyStatus};
+module.exports = {validateBody, validateBodyStatus};
 
